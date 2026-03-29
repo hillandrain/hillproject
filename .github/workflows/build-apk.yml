@@ -22,9 +22,13 @@ jobs:
     
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-      with:
-        cmdline-tools-version: 11076708
-        packages: 'platforms;android-33 build-tools;33.0.0 platform-tools'
+    
+    - name: Accept Android licenses
+      run: yes | sdkmanager --licenses || true
+    
+    - name: Install Android SDK components
+      run: |
+        sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
     
     - name: Cache Gradle packages
       uses: actions/cache@v4
@@ -42,10 +46,13 @@ jobs:
     
     - name: Build with Gradle
       working-directory: ./color-guess-apk-source
-      run: ./gradlew assembleDebug --stacktrace
+      env:
+        ANDROID_HOME: ${{ env.ANDROID_HOME }}
+      run: ./gradlew assembleDebug --info
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
+      if: always()
       with:
         name: color-guess-apk
         path: color-guess-apk-source/app/build/outputs/apk/debug/*.apk
