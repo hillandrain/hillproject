@@ -1,2 +1,2 @@
-rootProject.name = "猜颜色游戏"
+rootProject.name = "ColorGuess"
 include ':app'

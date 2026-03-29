@@ -7,8 +7,7 @@
     <application
         android:allowBackup="true"
         android:label="猜颜色游戏"
-        android:icon="@mipmap/ic_launcher"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         
         <activity
             android:name=".MainActivity"
